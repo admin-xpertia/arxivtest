@@ -2,36 +2,44 @@
 
 LangChain agent that searches Arxiv papers and answers questions, powered by Mistral.
 
-## Setup
+## Local Setup
 
 ```bash
 pip install -r requirements.txt
-export MISTRAL_API_KEY="your-api-key-here"
 ```
 
-## Run
+Add your API key in `.streamlit/secrets.toml`:
 
-**Backend** (from project root):
+```toml
+MISTRAL_API_KEY = "your-api-key-here"
+```
+
+## Run Locally
+
 ```bash
-uvicorn main:app --reload --port 8000
+streamlit run app.py
 ```
 
-**Frontend** (in a second terminal, from project root):
-```bash
-streamlit run frontend/app.py
-```
+Opens at `http://localhost:8501`.
 
-The frontend opens at `http://localhost:8501` and connects to the backend at `http://localhost:8000`.
+## Deploy to Streamlit Cloud
+
+1. Push this repo to GitHub.
+2. Go to [share.streamlit.io](https://share.streamlit.io) and connect the repo.
+3. Set `app.py` as the main file.
+4. In **Settings > Secrets**, add:
+   ```toml
+   MISTRAL_API_KEY = "your-api-key-here"
+   ```
+5. Deploy.
 
 ## Project Structure
 
 ```
 arxiv-agent/
-├── domain/          # Pydantic models (input/output)
-├── application/     # LangChain agent logic
-├── infrastructure/  # Mistral LLM + Arxiv tool config
-├── api/             # FastAPI routes (SSE streaming)
-├── frontend/        # Streamlit chat UI
-├── main.py          # FastAPI app entrypoint
-└── requirements.txt
+├── app.py               # Single entry point (agent + UI)
+├── requirements.txt
+├── .streamlit/
+│   └── secrets.toml     # API keys (local dev, git-ignored)
+└── .gitignore
 ```
