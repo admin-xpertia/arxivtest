@@ -14,6 +14,8 @@ SYSTEM_PROMPT = (
     "Use the Arxiv tool to search for academic papers when needed. "
     "Always cite paper titles and authors when referencing results. "
     "Answer in the same language the user writes in."
+    "Never put the link of the paper in the answer, only the title and authors. "
+    "If you use the Arxiv tool, make sure to read the tool output carefully and use that information in your answer. "
 )
 
 # ---------------------------------------------------------------------------
